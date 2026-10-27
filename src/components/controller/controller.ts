@@ -12,9 +12,10 @@ class AppController extends AppLoader {
     }
 
     getNews(e: MouseEvent, callback: (data: ResponseNews) => void): void {
-        let target = e.target as HTMLElement;
+        let target: HTMLElement | null = e.target instanceof HTMLElement ? e.target : null;
+        const newsContainer = e.currentTarget;
 
-        const newsContainer = e.currentTarget as HTMLElement;
+        if (!target || !(newsContainer instanceof HTMLElement)) return;
 
         while (target && target !== newsContainer) {
             if (target.classList.contains('source__item')) {
@@ -33,7 +34,7 @@ class AppController extends AppLoader {
                 }
                 return;
             }
-            target = target.parentNode as HTMLElement;
+            target = target.parentElement;
         }
     }
 }
