@@ -6,7 +6,8 @@
     "scripts": {
         "start": "webpack serve --open --config ./webpack.config.js --env mode=dev",
         "build": "webpack --config ./webpack.config.js --env mode=prod",
-        "lint": "eslint . --ext .ts"
+        "lint": "eslint . --ext .ts",
+        "coverage": "npx tsc --noEmit && npm run lint && npx type-coverage --detail"
     },
     "repository": {
         "type": "git",
@@ -32,6 +33,7 @@
         "prettier": "3.2.5",
         "style-loader": "^3.3.4",
         "ts-loader": "^9.6.2",
+        "type-coverage": "^2.30.4",
         "typescript": "^6.0.3",
         "webpack": "^5.90.1",
         "webpack-cli": "^5.1.4",
