@@ -18,6 +18,7 @@ export interface ResponseNews {
     totalResults: number;
     articles: Article[];
 }
+
 export interface Article {
     source: {
         id: string | null;
@@ -30,4 +31,9 @@ export interface Article {
     urlToImage: string;
     publishedAt: string;
     content: string;
+}
+
+export enum Endpoint {
+    Sources = 'sources',
+    Everything = 'everything'
 }
