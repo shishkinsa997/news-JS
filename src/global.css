@@ -16,20 +16,40 @@ header h1 {
 footer {
     height: 100px;
     display: flex;
+    position: relative;
     align-items: center;
     justify-content: center;
-}
-footer .copyright {
+    gap: 36px;
     font-size: 14px;
     color: #333;
     text-align: center;
 }
-footer .copyright a {
+footer a {
     color: #444;
 }
-footer .copyright a:hover {
+footer a:hover {
     color: #555;
 }
-footer .copyright:before {
+footer .copyright::before {
     content: '©';
+}
+.rsschool-logo,
+.github-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+footer img {
+    width: 30px;
+    height: 100%;
+    aspect-ratio: 1/1;
+}
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #333;
 }
