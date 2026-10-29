@@ -2,34 +2,85 @@ body {
     color: #fff;
     background: #17181c;
     font-family: sans-serif;
+    margin: 0;
 }
 
 header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-height: 50px;
     padding: 10px 30px;
 }
 
-header h1 {
-    font-size: 40px;
-    font-weight: 800;
+main {
+    display: flex;
+    justify-content: end;
+    height: calc(100vh - 120px);
+    overflow: hidden;
 }
 
 footer {
-    height: 100px;
+    height: 50px;
     display: flex;
+    position: relative;
     align-items: center;
     justify-content: center;
-}
-footer .copyright {
+    gap: 36px;
     font-size: 14px;
     color: #333;
     text-align: center;
 }
-footer .copyright a {
+footer a {
     color: #444;
 }
-footer .copyright a:hover {
+footer a:hover {
     color: #555;
 }
-footer .copyright:before {
+footer .copyright::before {
     content: '©';
+}
+.rsschool-logo,
+.github-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+footer img {
+    width: 30px;
+    height: 100%;
+    aspect-ratio: 1/1;
+}
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #333;
+}
+
+select {
+    appearance: none;
+    border: 0;
+    outline: 0;
+    background: #333;
+    border-radius: 8px;
+    color: inherit;
+    box-shadow: none;
+    flex: 1;
+    padding: 10px;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+select::-ms-expand {
+    display: none;
+}
+
+.topbar {
+    display: flex;
+    justify-content: start;
+    max-height: 40px;
+    gap: 16px;
 }
