@@ -1,11 +1,12 @@
 import AppLoader from './appLoader';
-import { ResponseNews, Response, Endpoint } from '../../types';
+import { ResponseNews, Response, Endpoint, Options } from '../../types';
 
 class AppController extends AppLoader {
-    getSources(callback: (data: Response) => void): void {
+    getSources(callback: (data: Response) => void, options: Partial<Options> = {}): void {
         super.getResp<Response>(
             {
                 endpoint: Endpoint.Sources,
+                options,
             },
             callback
         );
