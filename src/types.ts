@@ -35,5 +35,16 @@ export interface Article {
 
 export enum Endpoint {
     Sources = 'sources',
-    Everything = 'everything'
+    Everything = 'everything',
+}
+
+export interface DefaultOptions {
+    country: 'us';
+    category: 'general';
+    language?: 'en';
+}
+export interface Options {
+    country: string | undefined;
+    category: string | undefined;
+    language?: string | undefined;
 }
