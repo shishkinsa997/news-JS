@@ -21,7 +21,7 @@ class Sources {
 
             fragment.append(sourceClone);
         });
-
+        sources.innerHTML = '';
         sources.append(fragment);
     }
 }
