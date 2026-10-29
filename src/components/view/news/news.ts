@@ -42,6 +42,9 @@ class News {
 
         newsContainer.innerHTML = '';
         newsContainer.appendChild(fragment);
+        if (newsContainer.childNodes.length === 0) {
+            newsContainer.textContent = 'No results found for your search. Try changing the category or country';
+        }
     }
 }
 
