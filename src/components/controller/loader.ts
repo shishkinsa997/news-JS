@@ -1,8 +1,10 @@
 class Loader {
     private baseLink: string;
+    private mockLink: string;
     private options: { [key: string]: string };
-    constructor(baseLink: string, options: { [key: string]: string }) {
+    constructor(baseLink: string, mockLink: string, options: { [key: string]: string }) {
         this.baseLink = baseLink;
+        this.mockLink = mockLink;
         this.options = options;
     }
 
@@ -15,19 +17,23 @@ class Loader {
         this.load<T>('GET', endpoint, callback, options);
     }
 
-    errorHandler(res: Response): Response {
+    errorHandler(res: Response, isRetry: boolean): Response {
         if (!res.ok) {
-            if (res.status === 401 || res.status === 404)
+            if (res.status === 429 && isRetry) {
+                throw new Error(`Error ${res.status}: Too Many Requests (Mock failed too)`);
+            } else if (res.status === 401 || res.status === 404) {
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
+                throw Error(res.statusText);
+            }
             throw Error(res.statusText);
         }
 
         return res;
     }
 
-    makeUrl(options: { [key: string]: string }, endpoint: string): string {
+    makeUrl(options: { [key: string]: string }, endpoint: string, isRetry: boolean = false): string {
         const urlOptions = { ...this.options, ...options };
-        let url = `${this.baseLink}${endpoint}?`;
+        let url = `${!isRetry ? this.baseLink : this.mockLink}${endpoint}?`;
 
         Object.keys(urlOptions).forEach((key) => {
             url += `${key}=${urlOptions[key]}&`;
@@ -36,17 +42,31 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load<T>(
+    async load<T>(
         method: string,
         endpoint: string,
         callback: (data: T) => void,
-        options: { [key: string]: string } = {}
-    ): void {
-        fetch(this.makeUrl(options, endpoint), { method })
-            .then(this.errorHandler)
-            .then((res) => res.json() as Promise<T>)
-            .then((data) => callback(data))
-            .catch((err: Error) => console.error(err));
+        options: { [key: string]: string } = {},
+        isRetry: boolean = false
+    ): Promise<void> {
+        try {
+            const res = await fetch(this.makeUrl(options, endpoint, isRetry), { method });
+            if (res.status === 429) {
+                if (isRetry) {
+                    throw new Error(`429 Too Many Requests on mocks`);
+                } else {
+                    console.log('429 on API. Retrying with mocks...');
+                    return this.load<T>(method, endpoint, callback, options, true);
+                }
+            }
+
+            this.errorHandler(res, isRetry);
+
+            const data = (await res.json()) as T;
+            callback(data);
+        } catch (err) {
+            console.error(err);
+        }
     }
 }
 
