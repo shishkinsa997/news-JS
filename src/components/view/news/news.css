@@ -1,6 +1,6 @@
 .news {
     overflow-y: auto;
-    overflow: hidden;
+    overflow-x: hidden;
     height: 100%;
     padding-inline: 20px;
     display: flex;
