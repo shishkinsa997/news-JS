@@ -20,6 +20,7 @@ class App {
         const countrySelector = document.querySelector<HTMLSelectElement>('.countries');
         const categorySelector = document.querySelector<HTMLSelectElement>('.categories');
         const sourceElement = document.querySelector<HTMLElement>('.sources');
+        const burgerToggle = document.querySelector<HTMLInputElement>('#burger-toggle');
         if (!sourceElement || !countrySelector || !categorySelector) return;
 
         sourceElement.addEventListener('click', (e: MouseEvent) =>
@@ -56,6 +57,14 @@ class App {
                 );
             });
         }
+        burgerToggle?.addEventListener('change', () => {
+            if (burgerToggle.checked) {
+                sourceElement.style.right = '0';
+            } else {
+                sourceElement.style.right = '-100dvw';
+            }
+            console.dir(sourceElement);
+        });
         this.controller.getSources((data) => this.view.drawCountries(data));
         this.controller.getSources((data) => this.view.drawCategories(data));
         this.controller.getSources(

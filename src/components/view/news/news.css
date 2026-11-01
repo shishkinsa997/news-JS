@@ -1,5 +1,6 @@
 .news {
     overflow-y: auto;
+    overflow: hidden;
     height: 100%;
     padding-inline: 20px;
     display: flex;
@@ -8,7 +9,6 @@
     gap: 8px;
     width: 100%;
 
-    overflow: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }

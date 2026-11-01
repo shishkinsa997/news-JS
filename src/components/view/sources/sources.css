@@ -12,13 +12,13 @@
     padding: 10px;
     gap: 8px;
     box-sizing: border-box;
+    transition: right 0.5s ease-in-out;
 
-    overflow: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
 
-.source::-webkit-scrollbar {
+.sources::-webkit-scrollbar {
     width: 0;
     height: 0;
     display: none;
@@ -56,7 +56,6 @@
     position: relative;
     display: flex;
     width: min(10rem, 90vw);
-    /* background: #303030; */
     border-radius: 0.25rem;
     overflow: hidden;
 }
@@ -71,4 +70,20 @@
     top: 10px;
     transition: 0.25s all ease;
     pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+    .sources {
+        position: fixed;
+        right: -100dvw;
+        z-index: 1;
+        background-color: #17181c;
+        height: calc(100dvh - 120px);
+        border-left: 2px solid #555;
+    }
+}
+@media (max-width: 678px) {
+    .sources {
+        height: calc(100dvh - 190px);
+    }
 }
